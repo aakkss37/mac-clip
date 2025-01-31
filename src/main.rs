@@ -244,9 +244,14 @@ impl Application for MacClip {
             }
             Message::ToggleWindow => {
                 if !self.window_visible {
-                    Command::batch(vec![window::change_mode(window::Mode::Hidden)])
+                    Command::batch(vec![
+                        window::change_mode(window::Mode::Hidden),
+                    ])
                 } else {
-                    Command::batch(vec![window::change_mode(window::Mode::Windowed)])
+                    Command::batch(vec![
+                        window::change_mode(window::Mode::Windowed),
+                        window::gain_focus(),
+                    ])
                 }
             }
         }
@@ -336,16 +341,18 @@ impl Application for MacClip {
 }
 
 fn main() -> iced::Result {
-    MacClip::run(Settings {
+    let settings = Settings {
         window: window::Settings {
             size: (WINDOW_WIDTH, WINDOW_HEIGHT),
             position: Position::Centered,
-            transparent: false,
+            level: window::Level::AlwaysOnTop,
             resizable: false,
             decorations: true,
+            transparent: false,
             visible: false,
-            ..Default::default()
+            ..window::Settings::default()
         },
-        ..Default::default()
-    })
+        ..Settings::default()
+    };
+    MacClip::run(settings)
 }
