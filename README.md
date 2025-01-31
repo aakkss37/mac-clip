@@ -22,7 +22,7 @@ cargo install mac-clip
 Or build from source:
 
 ```bash
-git clone https://github.com/yourusername/mac-clip
+git clone [https://github.com/yourusername/mac-clip](https://github.com/aakkss37/mac-clip.git)
 cd mac-clip
 cargo build --release
 ```
