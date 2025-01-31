@@ -1,0 +1,24 @@
+[package]
+name = "mac-clip"
+version = "0.1.0"
+edition = "2021"
+authors = ["Amar kumar <amarkumar.sharma.124@gmail.com>"]
+description = "A clipboard history manager for macOS"
+license = "MIT"
+repository = "https://github.com/aakkss37/mac-clip"
+keywords = ["clipboard", "macos", "productivity", "utility"]
+categories = ["gui", "os::macos-apis"]
+
+[dependencies]
+arboard = "3.2"
+iced = { version = "0.10", features = ["tokio"] }
+global-hotkey = "0.4"
+cocoa = "0.25"
+objc = "0.2"
+tokio = { version = "1.32", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+directories = "5.0"
+log = "0.4"
+env_logger = "0.10"
+enigo = "0.1.3"
