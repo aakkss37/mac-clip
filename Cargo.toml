@@ -10,7 +10,10 @@ keywords = ["clipboard", "macos", "productivity", "utility"]
 categories = ["gui", "os::macos-apis"]
 
 include = [
+    "src/**/*",
     "resources/**/*",
+    "Cargo.toml",
+    "README.md",
 ]
 
 [dependencies]
