@@ -14,6 +14,7 @@ use log::{error, info};
 use serde::{Deserialize, Serialize};
 use std::{
     collections::VecDeque,
+    env,
     fs,
     path::PathBuf,
     sync::{Arc, Mutex},
@@ -25,6 +26,8 @@ const MAX_HISTORY_SIZE: usize = 50;
 const WINDOW_WIDTH: u32 = 400;
 const WINDOW_HEIGHT: u32 = 500;
 const CLIPBOARD_CHECK_INTERVAL: Duration = Duration::from_millis(100);
+
+mod daemon;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct ClipboardEntry {
@@ -341,18 +344,25 @@ impl Application for MacClip {
 }
 
 fn main() -> iced::Result {
-    let settings = Settings {
+    env_logger::init();
+
+    // Check if --daemon flag is provided
+    if env::args().any(|arg| arg == "--daemon") {
+        if let Err(e) = daemon::setup_daemon() {
+            eprintln!("Failed to setup daemon: {}", e);
+        } else {
+            println!("Mac-Clip daemon setup complete. The application will now start automatically when you log in.");
+            return Ok(());
+        }
+    }
+
+    MacClip::run(Settings {
         window: window::Settings {
             size: (WINDOW_WIDTH, WINDOW_HEIGHT),
             position: Position::Centered,
-            level: window::Level::AlwaysOnTop,
-            resizable: false,
-            decorations: true,
-            transparent: false,
             visible: false,
             ..window::Settings::default()
         },
         ..Settings::default()
-    };
-    MacClip::run(settings)
+    })
 }

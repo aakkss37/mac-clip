@@ -29,14 +29,29 @@ cargo build --release
 
 ## Usage
 
-1. Run the application:
+1. Install the application:
    ```bash
-   mac-clip
+   cargo install mac-clip
    ```
 
-2. The application will run in the background and monitor your clipboard
-3. Press `Command + Option + V` to show the clipboard history window
+2. Set up Mac-Clip to run automatically on startup:
+   ```bash
+   mac-clip --daemon
+   ```
+   This will configure Mac-Clip to start automatically when you log in.
+
+3. The application will now:
+   - Run in the background automatically when you log in
+   - Monitor your clipboard
+   - Be accessible via `Command + Option + V` to show the clipboard history window
+   - Not require keeping a terminal window open
+
 4. Click on any item in the history to paste it
+
+To manually start Mac-Clip without setting up the daemon:
+```bash
+mac-clip
+```
 
 ## Building from Source
 
